@@ -53,6 +53,9 @@ MANHEIM_CONFIG_SCHEMA = {
                 'duration_seconds': {'type': 'number'}
             }
         },
+        # Optional metrics namespace that will be passed through --metrics
+        # argument on custodian step
+        'metrics': {'type': 'string'},
         # Optional policy source paths. If not specified, uses the current
         # directory
         'policy_source_paths': {'type': 'array', 'items': {'type': 'string'}},

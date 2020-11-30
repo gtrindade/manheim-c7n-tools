@@ -29,7 +29,7 @@ from c7n_mailer.deploy import get_archive
 from c7n.mu import PythonPackageArchive
 
 pbm = 'manheim_c7n_tools.runner'
-
+namespace = 'aws://?namespace=foo'
 
 ALL_REGIONS = [
     "ap-south-1",
@@ -62,6 +62,7 @@ class StepTester(object):
         # in order to supplant __getattr__ calls
         self.m_conf = Mock(spec=ManheimConfig)
         self.m_conf.account_id = '01234567890'
+        self.m_conf.metrics = namespace
 
 
 class TestPolicygenStep(StepTester):
@@ -261,6 +262,7 @@ class TestCustodianStep(StepTester):
                 log_group='/cloud-custodian/ACCT/REGION',
                 verbose=1,
                 metrics_enabled=True,
+                metrics=namespace,
                 subparser='run',
                 cache='/tmp/.cache/cloud-custodian.cache',
                 command='c7n.commands.run',
@@ -290,6 +292,7 @@ class TestCustodianStep(StepTester):
                 regions=['rName'],
                 verbose=1,
                 metrics_enabled=False,
+                metrics=None,
                 subparser='run',
                 cache='/tmp/.cache/cloud-custodian.cache',
                 command='c7n.commands.run',

@@ -248,7 +248,7 @@ class CustodianStep(BaseStep):
         Perform an actual run of cloud-custodian.
 
         This replicates the command:
-        custodian run --region '${region}' --metrics -v -s \
+        custodian run --region '${region}' --metrics '${metrics}' -v -s \
           cloud-custodian-${account_id}-${region}/logs \
           --log-group=/cloud-custodian/${account_id}/${region} \
           -c custodian_${region}.yml \
@@ -261,6 +261,7 @@ class CustodianStep(BaseStep):
             log_group=self.config.custodian_log_group,
             verbose=1,
             metrics_enabled=True,
+            metrics=self.config.metrics,
             subparser='run',
             cache='/tmp/.cache/cloud-custodian.cache',
             command='c7n.commands.run',
@@ -286,6 +287,7 @@ class CustodianStep(BaseStep):
             regions=[self.region_name],
             verbose=1,
             metrics_enabled=False,
+            metrics=None,
             subparser='run',
             cache='/tmp/.cache/cloud-custodian.cache',
             command='c7n.commands.run',
